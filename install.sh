@@ -1,4 +1,4 @@
-# !/bin/bash
+#! /bin/bash
 
 pkgs=( "requests" "bs4" "fake_useragent" "pysimplegui" )
 
