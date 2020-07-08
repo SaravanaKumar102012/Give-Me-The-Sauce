@@ -8,37 +8,42 @@ header = lambda : {"user-agent":UserAgent().random, "connection":"keep-alive"}
 temp = "https://nhentai.net/g/"
 
 def imgURLS(number):
+    #This function generates the relative urls for the pictures using the number of pages
     url = temp + number + "/"
     html = requests.get(url,headers=header()).text
-    soup = BeautifulSoup(html,"html.parser").find_all("a")
-    return list(filter(lambda x : number in x,list(map(lambda x: str(x.get("href")),soup))))[1:]
+    pageNum = int(BeautifulSoup(html,"html.parser").find_all("span",class_="name")[-1].string)
+    return list("/g/{}/".format(number) + str(i) for i in range(1,pageNum+1))
+
+def rel2abs(url):
+    #rel2abs returns an absolute url after receiving as argument a relative url
+    return temp[:-3] + url
+
+def absoluteUrls(urls):
+    #applies rel2abs to a list of relative urls
+    return list(rel2abs(url) for url in urls)
 
 def imgSRC(url):
+    #imgSRC parses the image url for the source
     html = requests.get(url,headers=header()).text
     soup = BeautifulSoup(html,"html.parser").find_all("img")
-    final = list(map(lambda x: str(x.get("src")),soup))
-    return final[1] if len(final) > 1 else final[0]
-
-def rel2abs(urls):
-    return list(map(lambda x: temp[:-3] + x,urls ))
+    final = list(x.get("src") for x in soup)
+    return final[-1]
 
 def imgNames(lst):
-    final = list()
-    for el in lst:
-        for i in range(len(el) - 2,-1,-1):
-            if el[i] == '/':
-                final.append(el[i+1:])
-                break
-    return final
+    #generates the name of the images
+    return list(str(i) + ".jpg" for i in range(1,len(lst) + 1))
     
 def createFolder(folder):
+    #creates the folder for the doujinshi
     os.mkdir("Downloads/{}".format(folder))
     os.chdir("Downloads/{}".format(folder))
 
 def downloadChap(number):
+    #uses the previously defined functions to get the urls and names for all the images
     number = str(number)
     urls = imgURLS(number)
-    urls = rel2abs(urls)
+    urls = absoluteUrls(urls)
     urls = list(map(lambda x: imgSRC(x),urls))
     names = imgNames(urls)
-    return (number,urls,names)
+    createFolder(number)
+    return (urls,names)
