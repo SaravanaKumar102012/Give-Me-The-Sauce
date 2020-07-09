@@ -130,14 +130,14 @@ class initialize:
 
 class download:
 
-    def __init__(self,initedObj:initialize):
+    def __init__(self,initedObj:initialize) -> None:
         """
         initializes a download object using the initialize class
         """
         self.djin = initedObj.raw
         self.pages = initedObj.pages
     
-    def download(self,direct):
+    def download(self,direct:str) -> None:
         """
         method that downloads all the pages either to a specified directory or to Downloads/<Doujin_name>
         """
