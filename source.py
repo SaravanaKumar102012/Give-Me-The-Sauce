@@ -68,7 +68,7 @@ class doujin:
 
 class page(doujin):
 
-    def __init__(self,url,num) -> None:
+    def __init__(self,url:str,num:str) -> None:
         """
         initializes the page type object by assigning the page's url to the url property and
         the page's number to the num property, all the remaining properties are initialized as None
@@ -147,10 +147,13 @@ class download:
             os.mkdir("{}/{}".format(direct,self.djin.title))
         except: #if directory exists mkdir raises an error
             pass
+        previousdir = os.getcwd() # save the current directory to come back to it
         os.chdir("{}/{}".format(direct,self.djin.title))
+        with open("{}.txt".format(self.djin.number),"w+") as f:
+                f.write(self.djin.number) #creates a text file with the doujin number inside the folder
         for Page in self.pages:
             Page.download()
             with open("{}.jpg".format(Page.pageNumber),"wb+") as f:
                 f.write(Page.content)
             Page.content = None #so it doesnt occupy space
-            
+        os.chdir(previousdir)
