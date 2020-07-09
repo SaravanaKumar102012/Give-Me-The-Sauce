@@ -14,6 +14,10 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     if iteration == total: 
         print()
 
+progressbardummy = lambda x,y : x
+
+progressbarFILES = lambda x,y,z : printProgressBar(x,y)
+
 if __name__ == "__main__":
     print("nHentai.net CLI Downloader")
     while(True):
@@ -25,7 +29,7 @@ if __name__ == "__main__":
         if choice == '1':
             number = input("\nPlease input the number\n->")
             print("Please input the (absolute) destination directory")
-            print("(If one is not specified it will be downloaded to <current directory>/Downloads/")
+            print("(If one is not specified it will be downloaded to <current directory>/Downloads/)")
             print("Please don't put the '/' at the end of the path")
             direct = input("->")
             print("Initializing ...")
@@ -47,9 +51,9 @@ if __name__ == "__main__":
             direct = input("->")
             allNumbers = source.txtfile(filepath)
             if direct == "":
-                allNumbers.initandDownload(None,printProgressBar)
+                allNumbers.initandDownload(None,progressbardummy,progressbarFILES)
             else:
-                allNumbers.initandDownload(direct,printProgressBar)
+                allNumbers.initandDownload(direct,progressbardummy,progressbarFILES)
         elif choice == '3':
             break
     sys.exit()
