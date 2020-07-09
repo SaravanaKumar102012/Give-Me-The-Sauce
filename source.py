@@ -149,7 +149,7 @@ class download:
         self.djin = initedObj.raw
         self.pages = initedObj.pages
     
-    def download(self,direct:str) -> None:
+    def download(self,direct:str,progressbar) -> None:
         """
         method that downloads all the pages either to a specified directory or to Downloads/<Doujin_name>
         """
@@ -165,7 +165,38 @@ class download:
                 f.write(self.djin.number) #creates a text file with the doujin number inside the folder
         for Page in self.pages:
             Page.download()
+            progressbar(Page.pageNumber,self.djin.pageNum) # progress bar function depends on cli or gui
             with open("{}.jpg".format(Page.pageNumber),"wb+") as f:
                 f.write(Page.content)
             Page.content = None #so it doesnt occupy space
         os.chdir(previousdir)
+
+class txtfile:
+
+    def __init__(self,path:str) -> None:
+        """
+        initializes the txtfile object, receives a string (the path) and opens the file
+        and reads the file's content, assgning it to the numbers property
+        """
+        self.path = path
+        with open(self.path,"r") as f:
+            text = f.readlines()
+        self.numbers = list(int(number[:-1]) for number in text) #[:-1] -> '\n'
+    
+    def initandDownload(self,direct,progressbar) -> None:
+        """
+        initializes an initialize object for each number and downloads the content
+        """
+        for number in self.numbers:
+            print(number) # little notification so the user knows which one is downloading
+            i = 0
+            while i < 5: # each initialization is tried 5 times (or less if it succeeds earlier), the user is notified
+                try:     # in case it doesnt work
+                    initialized = initialize(number)
+                    downloadObj = download(initialized)
+                    downloadObj.download(direct,progressbar)
+                    break
+                except:
+                    i += 1
+            if i >= 5:      
+                print("Couldn´t download {}, please try this one again individually".format(number))

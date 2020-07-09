@@ -14,30 +14,6 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     if iteration == total: 
         print()
 
-
-class ALTdownload(source.download):
-    def download(self,direct:str) -> None:
-        """
-        method that downloads all the pages either to a specified directory or to Downloads/<Doujin_name>
-        """
-        if direct is None:
-            direct = "Downloads"
-        try:
-            source.os.mkdir("{}/{}".format(direct,self.djin.title))
-        except: #if directory exists mkdir raises an error
-            pass
-        previousdir = source.os.getcwd() # save the current directory to come back to it
-        source.os.chdir("{}/{}".format(direct,self.djin.title))
-        with open("{}.txt".format(self.djin.number),"w+") as f:
-                f.write(self.djin.number) #creates a text file with the doujin number inside the folder
-        for Page in self.pages:
-            Page.download()
-            printProgressBar(Page.pageNumber,self.djin.pageNum)
-            with open("{}.jpg".format(Page.pageNumber),"wb+") as f:
-                f.write(Page.content)
-            Page.content = None #so it doesnt occupy space
-        source.os.chdir(previousdir)
-
 if __name__ == "__main__":
     print("nHentai.net CLI Downloader")
     while(True):
@@ -55,11 +31,11 @@ if __name__ == "__main__":
             print("Initializing ...")
             content = source.initialize(int(number))
             print("Downloading ...")
-            download = ALTdownload(content)
+            download = source.download(content)
             if direct == "":
-                download.download(None)
+                download.download(None,printProgressBar)
             else:
-                download.download(direct)
+                download.download(direct,printProgressBar)
         elif choice == '2':
             print("\nFile has to be written in the following format:")
             print("<number>\n<number>\n<number>\n...")
@@ -69,7 +45,11 @@ if __name__ == "__main__":
             print("(If one is not specified it will be downloaded to <current directory>/Downloads/")
             print("Please don't put the '/' at the end of the path")
             direct = input("->")
-            #make a function that creates the objects and downloads
+            allNumbers = source.txtfile(filepath)
+            if direct == "":
+                allNumbers.initandDownload(None,printProgressBar)
+            else:
+                allNumbers.initandDownload(direct,printProgressBar)
         elif choice == '3':
             break
     sys.exit()
