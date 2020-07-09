@@ -36,9 +36,15 @@ class doujin:
         makes a request to nhentai and stores the html received in self.html
         if the request fails a RuntimeError will be raised
         """
-        req = requests.get(self.URL,headers=doujin.header()) #request to the server
+        i = 0
+        while(i < 5):
+            try:
+                req = requests.get(self.URL,headers=doujin.header()) #request to the server
+                break
+            except:
+                i += 1
         if req.status_code == 200:
-            self.html = BeautifulSoup(req.text,"html") #beautifulsoup initialization
+            self.html = BeautifulSoup(req.text,"html.parser") #beautifulsoup initialization
         else:
             raise RuntimeError("Request was not successful") #the request failed
     
@@ -97,7 +103,13 @@ class page(doujin):
         """
         if self.source is None:
             raise RuntimeError("self.source is None")
-        self.content = requests.get(self.source,headers=doujin.header())
+        i = 0
+        while(i < 5):
+            try:
+                self.content = requests.get(self.source,headers=doujin.header())
+                break
+            except:
+                i += 1
         if self.content.status_code == 200:
             self.content = self.content.content
         else:
