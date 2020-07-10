@@ -54,10 +54,10 @@ $ pip install requests
 
 > Bash (in the install folder):
 ```shell
-$ ./install.sh
+$ ./shell.sh
 ```
 > CMD:
-  - Just double click `install.cmd`
+  - Just double click `windows.cmd`
 
 ## Execution
 
