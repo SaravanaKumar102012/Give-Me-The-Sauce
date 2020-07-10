@@ -90,7 +90,7 @@ $ python3 cli.py
 
 ## Support
 
-- Just star on the repository if you used the program and it worked for you.
+- Just star the repository if you used the program and it worked for you.
 
 ---
 
