@@ -14,9 +14,8 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     if iteration == total: 
         print()
 
-progressbardummy = lambda x,y : x
-
-progressbarFILES = lambda x,y,z : printProgressBar(x,y)
+#prints a message with the number of the current download
+updateMessageFILES = lambda x : print("Now downloading {}.".format(x))
 
 if __name__ == "__main__":
     print("nHentai.net CLI Downloader")
@@ -51,9 +50,9 @@ if __name__ == "__main__":
             direct = input("->")
             allNumbers = source.txtfile(filepath)
             if direct == "":
-                allNumbers.initandDownload(None,progressbardummy,progressbarFILES)
+                allNumbers.initandDownload(None,printProgressBar,updateMessageFILES)
             else:
-                allNumbers.initandDownload(direct,progressbardummy,progressbarFILES)
+                allNumbers.initandDownload(direct,printProgressBar,updateMessageFILES)
         elif choice == '3':
             break
     sys.exit()

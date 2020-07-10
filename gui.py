@@ -1,11 +1,8 @@
 import source
 import PySimpleGUI as sg
 
-def iteration(current,total):
-    """
-    function used to return current filled percentage of the progress bar
-    """
-    return int((current / total) * 100)
+#function used to return current filled percentage of the progress bar
+iteration = lambda current,total:int((current / total) * 100)
 
 #the theme used for the window
 sg.theme("Reddit")
@@ -23,13 +20,10 @@ layout = [  [sg.Text('Input the Number:                     ',key="UpperText")],
 window = sg.Window('nHentai.net GUI Downloader', layout)
 
 #progress bar for a single download
-progressbar = lambda x,y: window["progressbar"].UpdateBar(iteration(x,y))
+progressbar = lambda current,total: window["progressbar"].UpdateBar(iteration(current,total))
 
 #progressbar for downloading from a file
-progressbarFILES = lambda x,y,z: window["DownloadText"].update("Now Downloading {}".format(z)) and window["progressbar"].UpdateBar(iteration(x,y))
-
-#dummy progressbar for quiet downloads
-progressbardummy = lambda x,y : x
+messageUpdateFILES = lambda number: window["DownloadText"].update("Now Downloading {}".format(number))
 
 #main code
 while True:
@@ -56,8 +50,8 @@ while True:
         else:
             filepath = values[0]
             txtfile = source.txtfile(filepath)
-            txtfile.initandDownload(direct,progressbardummy,progressbarFILES)
-        print("Directory:{}".format(direct))
+            txtfile.initandDownload(direct,progressbar,messageUpdateFILES)
+        print("Directory:{}".format(direct)) #little message printed when the download is finished
         print("Input:{}".format(values[0]))
         sg.popup_ok("Done!") #another popup at the end for when the download is done
 

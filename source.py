@@ -183,23 +183,20 @@ class txtfile:
             text = f.readlines()
         self.numbers = list(int(number[:-1]) for number in text) #[:-1] -> '\n'
     
-    def initandDownload(self,direct:str,progressbar1,progressbar2) -> None:
+    def initandDownload(self,direct:str,progressbar,messageUpdate) -> None:
         """
         initializes an initialize object for each number and downloads the content
         """
-        j,length = 1,len(self.numbers)
         for number in self.numbers:
-            progressbar2(j,length,number)
-            print(number) # little notification so the user knows which one is downloading
+            messageUpdate(number) #updates the message shown in the GUI/ prints a message to the command line (CLI)
             i = 0
             while i < 5: # each initialization is tried 5 times (or less if it succeeds earlier), the user is notified
                 try:     # in case it doesnt work
                     initialized = initialize(number)
                     downloadObj = download(initialized)
-                    downloadObj.download(direct,progressbar1)
+                    downloadObj.download(direct,progressbar)
                     break
                 except:
                     i += 1
             if i >= 5:      
                 print("Couldn´t download {}, please try this one again individually".format(number))
-            j += 1
