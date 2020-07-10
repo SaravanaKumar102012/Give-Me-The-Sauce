@@ -2,15 +2,15 @@
 
 # Give-Me-The-Sauce
 
-> GUI and CLI Downloader for nHentai.net.
+> Simple Scraper built in python 3 using BeautifulSoup4,fake_useragent and requests, for downloading files of nHentai.net
 
-> Simple Scraper built in python 3 using BeautifulSoup4,fake_useragent and requests.
+> With an option for a Graphical User Interface or a Command Line Interface. (altough, personally I recommend the GUI)
 
-> include terms/tags that can be searched
+> ###Tags
 
-***INSERT ANOTHER GRAPHIC HERE***
+***Examples of Use***
 
-[![INSERT YOUR GRAPHIC HERE](http://i.imgur.com/dt8AUb6.png)]()
+[![INSERT YOUR GRAPHIC HERE](https://imgur.com/a/WOEppmV)]()
 
 - Most people will glance at your `README`, *maybe* star it, and leave
 - Ergo, people should understand instantly what your project is about based on your repo
