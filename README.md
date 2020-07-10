@@ -23,7 +23,7 @@
 - JUST GET THAT SAUCE!
 
 
-## Table of Contents (Optional)
+## Table of Contents
 
 - [Requirements](#requirements)
 - [Setup](#setup)
