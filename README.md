@@ -17,7 +17,8 @@
 ### Downloading using a number:
 <br>
 <a href="screenshot2"><img src="https://i.imgur.com/JzHeSmS.png" width="400" height="150" alt="screenshot2"></a>
-<br>
+
+
 - DOWNLOAD AN ENTIRE LIST OF DOUJINS FROM A FILE!
 - DOWNLOAD EACH ONE INDIVIDUATELY!
 - JUST GET THAT SAUCE!
