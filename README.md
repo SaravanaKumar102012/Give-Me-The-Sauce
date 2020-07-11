@@ -50,7 +50,7 @@ $ pip install requests
 
 ## Setup
 
-- In the install folder there are also little scripts for cmd and for bash to for installing the dependencies using pip.
+- In the install folder there are also little scripts for cmd and for bash to install the dependencies using pip.
 
 > Bash (in the install folder):
 ```shell
