@@ -156,11 +156,11 @@ class download:
         if direct is None:
             direct = "Downloads"
         try:
-            os.mkdir("{}/{}".format(direct,self.djin.title))
+            os.mkdir("{}/{}".format(direct,self.djin.number))
         except: #if directory exists mkdir raises an error
             pass
         previousdir = os.getcwd() # save the current directory to come back to it
-        os.chdir("{}/{}".format(direct,self.djin.title))
+        os.chdir("{}/{}".format(direct,self.djin.number))
         with open("{}.txt".format(self.djin.number),"w+") as f:
                 f.write(self.djin.number) #creates a text file with the doujin number inside the folder
         for Page in self.pages:
